@@ -1,9 +1,9 @@
-let Moment = require('moment')
+let Moment = require('moment');
 module.exports = function () {
-    let smsCost = 0;
-    let callCost = 0;
-    let warningLevel = 0;
-    let criticalLevel = 0;
+    let smsCost;
+    let callCost;
+    let warningLevel;
+    let criticalLevel;
     let actionList = [];
 
     function setSettings(settings) {
@@ -13,7 +13,7 @@ module.exports = function () {
         criticalLevel = settings.criticalLevel;
     }
 
-    function getSettings() {
+    function finTotal() {
         return {
             smsCost,
             callCost,
@@ -108,7 +108,6 @@ module.exports = function () {
 
     return {
         setSettings,
-        getSettings,
         recordAction,
         actions,
         actionsFor,
