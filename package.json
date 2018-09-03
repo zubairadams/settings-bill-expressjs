@@ -37,6 +37,6 @@
     "eslint-plugin-standard": "^3.1.0"
   },
   "directories": {
-    "test": "tests"
+    "test": "test.js"
   }
 }
