@@ -1,5 +1,6 @@
 let assert = require('assert');
 let settings = require('./settings-bill.js');
+
 describe('the settings bill function', function () {
     it('it should return the price of two calls and no sms', function () {
         var settingsBill = settings();
