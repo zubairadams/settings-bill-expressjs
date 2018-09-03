@@ -99,7 +99,7 @@ describe('the settings bill function', function () {
 
         assert.equal(5, totals.callTotal);
         assert.equal(10, totals.smsTotal);
-       
+
         assert.equal(15, totals.finTotal);
     });
 });
