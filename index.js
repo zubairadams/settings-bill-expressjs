@@ -4,9 +4,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const settings = require('./settings-bill');
 const bill = settings();
+const Moment = require("moment");
 
 app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    helpers: {
+        "timeAgo" : function (){
+            return Moment(this.timestamp).fromNow()
+        }
+    }
 }));
 app.set('view engine', 'handlebars');
 
@@ -64,8 +70,9 @@ app.get('/actions/:type', function (req, res) {
         actions: holding
     });
 });
-let PORT = process.env.PORT || 4009;
+let PORT = process.env.PORT || 4010;
 
 app.listen(PORT, function () {
     console.log('App started on port', PORT);
 });
+

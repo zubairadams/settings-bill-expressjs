@@ -1,12 +1,12 @@
-let Moment = require('moment');
+
 module.exports = function () {
-    let smsCost;
-    let callCost;
-    let warningLevel;
-    let criticalLevel;
+    let smsCost = 0;
+    let callCost = 0;
+    let warningLevel = 0;
+    let criticalLevel = 0;
     let actionList = [];
 
-    function setSettings(settings) {
+    function setSettings (settings) {
         smsCost = Number(settings.smsCost);
         callCost = Number(settings.callCost);
         warningLevel = settings.warningLevel;
@@ -21,7 +21,7 @@ module.exports = function () {
     //     }
     // }
 
-    function finTotal() {
+    function getSettings () {
         return {
             smsCost,
             callCost,
@@ -30,28 +30,36 @@ module.exports = function () {
         };
     }
 
-    function recordAction(action) {
+    function recordAction (action) {
+        
+        // let myToday = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+       // console.log(date);
+        //console.log(myToday);
+
+        let record = {
+            type: action,
+            timestamp: new Date()
+        }
+
         if (finTotal() < criticalLevel) {
             let cost = 0;
             if (action === 'sms') {
                 cost = smsCost;
+                record.cost = smsCost;
             } else if (action === 'call') {
                 cost = callCost;
+                record.cost = callCost;
             }
 
-            actionList.push({
-                type: action,
-                cost: cost,
-                timestamp: Moment(new Date()).fromNow()
-            });
+            actionList.push(record);
         }
     }
 
-    function actions() {
+    function actions () {
         return actionList;
     }
 
-    function actionsFor(type) {
+    function actionsFor (type) {
         const filteredActions = [];
 
         for (let index = 0; index < actionList.length; index++) {
@@ -65,7 +73,7 @@ module.exports = function () {
         return filteredActions;
     }
 
-    function getTotal(type) {
+    function getTotal (type) {
         let total = 0;
 
         for (let index = 0; index < actionList.length; index++) {
@@ -77,11 +85,15 @@ module.exports = function () {
         return total;
     }
 
-    function finTotal() {
+    function finTotal () {
         return getTotal('sms') + getTotal('call');
     }
 
+<<<<<<< HEAD
+    function totals () {
+=======
     function totals() {
+>>>>>>> 27b2b7accedd8e470e3bba49acbbc133a86fd0ab
         let smsTotal = getTotal('sms').toFixed(2);
         let callTotal = getTotal('call').toFixed(2);
         return {
@@ -91,8 +103,7 @@ module.exports = function () {
         };
     }
 
-
-    function hasReachedWarningLevel() {
+    function hasReachedWarningLevel () {
         const total = finTotal();
         const reachedWarningLevel = total >= warningLevel &&
             total < criticalLevel;
@@ -100,12 +111,12 @@ module.exports = function () {
         return reachedWarningLevel;
     }
 
-    function hasReachedCriticalLevel() {
+    function hasReachedCriticalLevel () {
         const total = finTotal();
         return total >= criticalLevel;
     }
 
-    function ColorChange() {
+    function ColorChange () {
         if (hasReachedWarningLevel()) {
             return 'warning';
         } else if (hasReachedCriticalLevel()) {
@@ -113,17 +124,19 @@ module.exports = function () {
         }
     }
 
-
     return {
         setSettings,
+        getSettings,
         recordAction,
         finTotal,
         actions,
         actionsFor,
         totals,
+        finTotal,
         hasReachedWarningLevel,
         hasReachedCriticalLevel,
         ColorChange
 
     };
 };
+
