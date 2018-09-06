@@ -21,12 +21,20 @@ app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
     res.render('index', {
-        settings: bill.getSettings(),
+        settings: bill.finTotal(),
         totals: bill.totals(),
         ColorChange: bill.ColorChange()
     });
 });
-
+app.post('/settings', function (req, res) {
+    bill.setSettings({
+        callCost: req.body.callCost,
+        smsCost: req.body.smsCost,
+        warningLevel: req.body.warningLevel,
+        criticalLevel: req.body.criticalLevel
+    });
+    res.redirect('/');
+});
 app.post('/settings', function (req, res) {
     bill.setSettings({
         callCost: req.body.callCost,

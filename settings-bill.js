@@ -12,6 +12,14 @@ module.exports = function () {
         warningLevel = settings.warningLevel;
         criticalLevel = settings.criticalLevel;
     }
+    // function getSettings() {
+    //     return {
+    //         smsCost = Number(settings.smsCost);
+    //         callCost = Number(settings.callCost);
+    //         warningLevel = settings.warningLevel;
+    //         criticalLevel = settings.criticalLevel;
+    //     }
+    // }
 
     function finTotal() {
         return {
@@ -74,12 +82,12 @@ module.exports = function () {
     }
 
     function totals() {
-        let smsTotal = getTotal('sms');
-        let callTotal = getTotal('call');
+        let smsTotal = getTotal('sms').toFixed(2);
+        let callTotal = getTotal('call').toFixed(2);
         return {
             smsTotal,
             callTotal,
-            finTotal: finTotal()
+            finTotal: finTotal().toFixed(2)
         };
     }
 
@@ -109,6 +117,7 @@ module.exports = function () {
     return {
         setSettings,
         recordAction,
+        finTotal,
         actions,
         actionsFor,
         totals,
